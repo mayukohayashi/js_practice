@@ -576,7 +576,7 @@ Remember: BMI = mass / height^2 = mass / (height * height). (mass in kg and heig
 
 GOOD LUCK
 */
-
+/*
 var john = {
       fullName: 'John Smith',
       mass: 68,
@@ -636,4 +636,6 @@ if (john.calcBMI() > mark.calcBMI()) {
     console.log('They have the same BMI');
 }
 */
+
+
 
