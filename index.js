@@ -439,9 +439,12 @@ console.log(isDesigner);
 */
 
 /*
-John and his family went on a holiday and went to 3 different restaurants. The bills were $124, $48 and $268.
+John and his family went on a holiday and went to 3 different restaurants.
+The bills were $124, $48 and $268.
 
-To tip the waiter a fair amount, John created a simple tip calculator (as a function). He likes to tip 20% of the bill when the bill is less than $50, 15% when the bill is between $50 and $200, and 10% if the bill is more than $200.
+To tip the waiter a fair amount, John created a simple tip calculator (as a function).
+He likes to tip 20% of the bill when the bill is less than $50, 15%
+when the bill is between $50 and $200, and 10% if the bill is more than $200.
 
 In the end, John would like to have 2 arrays:
 1) Containing all three tips (one for each bill)
@@ -451,5 +454,186 @@ In the end, John would like to have 2 arrays:
 
 GOOD LUCK
 */
+/*
 
+function tipForWaiter(money) {
+  if (money < 50){
+    var tipLessThan50 = money * 1.2;
+    console.log('Paying ' + tipLessThan50 + 'dollers');
+  } else if (money >= 50 && money < 200){
+    var tipBetween50To200 = money * 1.15;
+    console.log('Paying ' + tipBetween50To200 + 'dollers');
+  } else {
+    var tipMore200 = money * 1.1;
+    console.log('Paying ' + tipMore200 + 'dollers');
+  }
+}
+
+tipForWaiter(24);
+tipForWaiter(48);
+tipForWaiter(268);
+
+
+/*
+function tipCalculator(bill) {
+    var percentage;
+    if (bill < 50) {
+        percentage = .2;
+    } else if (bill >= 50 && bill < 200) {
+        percentage = .15;
+    } else {
+        percentage = .1;
+    }
+    return percentage * bill;
+}
+
+var bills = [124, 48, 268];
+var tips = [tipCalculator(bills[0]),
+            tipCalculator(bills[1]),
+            tipCalculator(bills[2])];
+
+var finalValues = [bills[0] + tips[0],
+                   bills[1] + tips[1],
+                   bills[2] + tips[2]];
+
+console.log(tips, finalValues);
+*/
+
+
+
+/*****************************
+* Objects and properties
+*/
+
+
+/*
+// Object literal
+var john = {
+    firstName: 'John',
+    lastName: 'Smith',
+    birthYear: 1990,
+    family: ['Jane', 'Mark', 'Bob', 'Emily'],
+    job: 'teacher',
+    isMarried: false
+};
+
+console.log(john.firstName);
+console.log(john['lastName']);
+var x = 'birthYear';
+console.log(john[x]);
+
+john.job = 'designer';
+john['isMarried'] = true;
+console.log(john);
+
+// new Object syntax
+var jane = new Object();
+jane.firstName = 'Jane';
+jane.birthYear = 1969;
+jane['lastName'] = 'Smith';
+console.log(jane);
+*/
+
+
+
+/*****************************
+* Objects and methods
+*/
+/*
+var john = {
+    firstName: 'John',
+    lastName: 'Smith',
+    birthYear: 1992,
+    family: ['Jane', 'Mark', 'Bob', 'Emily'],
+    job: 'teacher',
+    isMarried: false,
+    calcAge: function() {
+        this.age = 2018 - this.birthYear;
+    }
+};
+
+john.calcAge();
+console.log(john);
+*/
+
+
+
+/*****************************
+* CODING CHALLENGE 4
+*/
+
+/*
+Let's remember the first coding challenge where Mark and John compared their BMIs.
+Let's now implement the same functionality with objects and methods.
+1. For each of them, create an object with properties for their full name, mass, and height
+2. Then, add a method to each object to calculate the BMI.
+Save the BMI to the object and also return it from the method.
+3. In the end, log to the console who has the highest BMI,
+together with the full name and the respective BMI.
+Don't forget they might have the same BMI.
+
+Remember: BMI = mass / height^2 = mass / (height * height). (mass in kg and height in meter).
+
+GOOD LUCK
+*/
+
+var john = {
+      fullName: 'John Smith',
+      mass: 68,
+      height: 172
+}
+
+var mark = {
+  fullName: 'Mark Kane',
+  mass: 80,
+  height: 190
+}
+
+var calcuBmi = function(mass) {
+  BMI = mass / height^2;
+};
+
+john.BMI();
+mark.BMI();
+
+function compareBmi(BMI) {
+  if (john.BMI > mark.BMI){
+    console.log('Jon\'s BMI is' + john.BMI + 'and higher than Mark\'s')
+  } else if (mark.BMI > john.BMI) {
+    console.log('Mark\'s BMI is' + mark.BMI + 'and higher than John\'s')
+  } else {
+    console.log('they are same BMI')
+  }
+}
+
+
+/*
+var john = {
+    fullName: 'John Smith',
+    mass: 110,
+    height: 1.95,
+    calcBMI: function() {
+        this.bmi = this.mass / (this.height * this.height);
+        return this.bmi;
+    }
+}
+
+var mark = {
+    fullName: 'Mark Miller',
+    mass: 78,
+    height: 1.69,
+    calcBMI: function() {
+        this.bmi = this.mass / (this.height * this.height);
+        return this.bmi;
+    }
+}
+
+if (john.calcBMI() > mark.calcBMI()) {
+    console.log(john.fullName + ' has a higher BMI of ' + john.bmi);
+} else if (mark.bmi > john.bmi) {
+    console.log(mark.fullName + ' has a higher BMI of ' + mark.bmi);
+} else {
+    console.log('They have the same BMI');
+}
+*/
 
