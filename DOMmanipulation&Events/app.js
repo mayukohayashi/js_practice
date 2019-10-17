@@ -18,23 +18,63 @@ roundScore = 0;
 activePlayer = 0;
 
 // can check on console about this math
-dice = Math.floor(Math.random() * 6) + 1
+// dice = Math.floor(Math.random() * 6) + 1
 // console.log(dice); //ok for in console
+
 
 // '#current-' then 0 or 1
 // textContent only give plain text, if i want to giv HTML...
 // document.querySelector('#current-' + activePlayer).innerHTML = '<em>' + dice + '</em>';
-document.querySelector('#current-' + activePlayer).textContent = dice;
+// document.querySelector('#current-' + activePlayer).textContent = dice;
 
 // show what the ID has *Getter!
-var x = document.querySelector('#score-0').textContent;
-console.log(x)
+// var x = document.querySelector('#score-0').textContent;
+// console.log(x)
+
 
 // hide the dice in the beginning
 // need to change CSS property! so use style method!!!
 document.querySelector('.dice').style.display = 'none';
-document.querySelector('.btn-roll').addEventListener('click')
+
+document.getElementById('score-0').textContent = '0';
+document.getElementById('score-1').textContent = '0';
+document.getElementById('current-0').textContent = '0';
+document.getElementById('current-1').textContent = '0';
 
 
+
+  document.querySelector('.btn-roll').addEventListener('click', function(){
+
+      // 1. Random number
+      var dice = Math.floor(Math.random() * 6) + 1
+
+      // 2. Display the result
+      var diceDOM = document.querySelector('.dice');
+      diceDOM.style.display = 'block';
+      diceDOM.src ='dice-' + dice + '.png';
+
+
+      // 3. Update the round score IF the rolled number was NOT a 1
+      if (dice !== 1) {
+        // Add score
+        roundScore += dice;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      } else {
+        // Next player
+        activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+      //       same as....
+      //       if(activePlayer === 0){
+      //         activePlayer = 1;
+      //       } else {
+      //         activePlayer = 0
+      //       }
+        roundScore = 0;
+
+        document.getElementById('current-0').textContent = '0';
+        document.getElementById('current-1').textContent = '0';
+
+      }
+
+  });
 
 
