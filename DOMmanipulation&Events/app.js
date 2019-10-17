@@ -33,11 +33,7 @@ console.log(x)
 // hide the dice in the beginning
 // need to change CSS property! so use style method!!!
 document.querySelector('.dice').style.display = 'none';
-
-
-
-
-
+document.querySelector('.btn-roll').addEventListener('click')
 
 
 
