@@ -15,6 +15,20 @@ var budgetController = (function() {
     this.value = value;
   };
 
+  var calculateTotal = function(type) {
+    var sum = 0;
+    data.allItems[type].forEach(function(cur) {
+        sum += cur.value;
+    /*
+    0
+    [200, 400, 100]
+    sum = 0 + 200
+    sum = 200 + 400
+    */
+    });
+    data.totals[type] = sum;
+  }
+
   var data = {
     allItems: {
       exp: [],
@@ -24,7 +38,10 @@ var budgetController = (function() {
     totals: {
       exp: 0,
       inc: 0
-    }
+    },
+
+    budget: 0,
+    percentage: -1
   };
 
   return {
@@ -55,6 +72,37 @@ var budgetController = (function() {
       //return the new element
       return newItem;
     },
+
+    calculateBudget: function() {
+
+      // calculate total income and expenses
+      calculateTotal('exp');
+      calculateTotal('inc');
+
+      // calculate the budget: income -expenses
+      data.budget = data.totals.inc - data.totals.exp;
+
+      //calculate the percentage of income that we spent
+      if (data.totals.inc > 0) {
+        data.percentage = Math.round((data.totals.exp / data.totals.inc) * 100);
+
+      } else {
+        data.percentage = -1;
+      }
+
+      //Expense = 100 and income 200, spend 50% = 100/200=0.5*100
+
+    },
+
+    getBudget: function() {
+      return {
+        budget: data.budget,
+        totalInc: data.totals.inc,
+        totalExp: data.totals.exp,
+        percentage: data.percentage
+      }
+    },
+
     testing: function() {
       console.log(data);
     }
@@ -83,15 +131,19 @@ var UIController = (function(){
     inputBtn:          '.add__btn',
     incomeContainer:   '.income__list',
     expensesContainer: '.expenses__list',
-
+    budgetLabel:       '.budget__value',
+    incomeLabel:       '.budget__income--value',
+    expensesLabel:     '.budget__expenses--value',
+    percentageLabel:   '.budget__expenses--percentage'
   }
+
   return {
     getInput: function() {
 
       return {
         type:        document.querySelector(DOMStrings.inputType).value, // will be either "inc" or "exp"
         description: document.querySelector(DOMStrings.inputDescription).value,
-        value:       document.querySelector(DOMStrings.inputValue).value
+        value:       parseFloat(document.querySelector(DOMStrings.inputValue).value)
       };
     },
 
@@ -140,6 +192,20 @@ var UIController = (function(){
 
     },
 
+    displayBudget: function(obj) {
+
+      document.querySelector(DOMStrings.budgetLabel).textContent = obj.budget;
+      document.querySelector(DOMStrings.incomeLabel).textContent = obj.totalInc;
+      document.querySelector(DOMStrings.expensesLabel).textContent = obj.totalExp;
+
+      if (obj.percentage > 0) {
+        document.querySelector(DOMStrings.percentageLabel).textContent = obj.percentage + '%';
+      } else {
+        document.querySelector(DOMStrings.percentageLabel).textContent = '---';
+      }
+
+    },
+
     getDOMStrings: function() {
       return DOMStrings;
     }
@@ -174,10 +240,14 @@ var controller = (function(budgetCtrl, UICtrl) {
 
   var updateBudget = function() {
       // 5. Calculate the budget
+      budgetCtrl.calculateBudget();
 
       // 5' return the budget
+      var budget = budgetCtrl.getBudget();
 
       // 6. Display the budget on the UI
+      // console.log(budget);
+      UICtrl.displayBudget(budget);
 
   }
 
@@ -190,6 +260,8 @@ var controller = (function(budgetCtrl, UICtrl) {
       input = UICtrl.getInput();
       // console.log(input);
 
+      if (input.description !== "" && !isNaN(input.value) && input.value > 0) {
+
       // 2. Add the item to the budget controller
       newItem = budgetCtrl.addItem(input.type, input.description, input.value);
 
@@ -201,11 +273,20 @@ var controller = (function(budgetCtrl, UICtrl) {
 
       // 4. calculate and update budget
       updateBudget();
-  }
+
+    }
+
+  };
 
   return {
     init: function(){
       console.log ('APPLICATION has STARTed!');
+      UICtrl.displayBudget({
+        budget: 0,
+        totalInc: 0,
+        totalExp: 0,
+        percentage: -1
+      });
       setupEventListeners();
     }
   }
