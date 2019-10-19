@@ -10,15 +10,16 @@ var budgetController = (function() {
       this.percentage = -1;
   };
 
+
   Expense.prototype.calcPercentages = function(totalIncome) {
 
-    if (totalIncome > 0){
+    if (totalIncome > 0) {
       this.percentage = Math.round((this.value / totalIncome) * 100);
     } else {
       this.percentage = -1;
     }
-
   };
+
 
   Expense.prototype.getPercentage = function() {
     return this.percentage;
@@ -30,6 +31,7 @@ var budgetController = (function() {
       this.description = description;
       this.value = value;
   };
+
 
   var calculateTotal = function(type) {
     var sum = 0;
@@ -43,7 +45,8 @@ var budgetController = (function() {
     */
     });
     data.totals[type] = sum;
-  }
+  };
+
 
   var data = {
     allItems: {
@@ -60,8 +63,9 @@ var budgetController = (function() {
     percentage: -1
   };
 
+
   return {
-    addItem: function(type, des, val){
+    addItem: function(type, des, val) {
       var newItem, ID;
 
       //[1, 2, 3, 4, 5], next ID = 6
@@ -76,7 +80,7 @@ var budgetController = (function() {
       }
 
       // create new item based on 'inc' or 'exp' type
-      if(type === 'exp') {
+      if (type === 'exp') {
         newItem = new Expense(ID, des, val);
       } else if (type === 'inc') {
         newItem = new Income(ID, des, val);
@@ -97,7 +101,7 @@ var budgetController = (function() {
       //ids = [1, 3, 4, 6, 8]
       //index = 3
 
-      var ids = data.allItems[type].map(function(current) {
+       ids = data.allItems[type].map(function(current) {
         return current.id;
       });
 
@@ -141,7 +145,7 @@ var budgetController = (function() {
       c=40/100=40%
       */
       data.allItems.exp.forEach(function(cur) {
-        cur.calcPercentages(data.totals.i);
+        cur.calcPercentages(data.totals.inc);
       });
     },
 
@@ -160,7 +164,7 @@ var budgetController = (function() {
         totalInc: data.totals.inc,
         totalExp: data.totals.exp,
         percentage: data.percentage
-      }
+      };
     },
 
     testing: function() {
@@ -195,7 +199,8 @@ var UIController = (function(){
     incomeLabel:       '.budget__income--value',
     expensesLabel:     '.budget__expenses--value',
     percentageLabel:   '.budget__expenses--percentage',
-    container:         '.container'
+    container:         '.container',
+    expensesPercLabel: '.item__percentage'
   }
 
   return {
@@ -244,11 +249,10 @@ var UIController = (function(){
 
     },
 
-    clearFields: function(){
+    clearFields: function() {
       var fields, fieldsArr;
 
-      fields = document.querySelectorAll
-              (DOMStrings.inputDescription + ',' + DOMStrings.inputValue);
+      fields = document.querySelectorAll(DOMStrings.inputDescription + ', ' + DOMStrings.inputValue);
 
       fieldsArr = Array.prototype.slice.call(fields);
 
@@ -271,6 +275,27 @@ var UIController = (function(){
       } else {
         document.querySelector(DOMStrings.percentageLabel).textContent = '---';
       }
+
+    },
+
+    displayPercentages: function(percentages) {
+
+      var fields = document.querySelectorAll(DOMStrings.expensesPercLabel);
+
+      var nodeListForEach = function(list, callback) {
+        for (var i = 0; i < list.length; i++) {
+          callback(list[i], i);
+        }
+      };
+
+      nodeListForEach(fields, function(current, index) {
+
+        if (percentages[index] > 0) {
+          current.textContent = percentages[index] + '%';
+        } else {
+          current.textContent = '---';
+        }
+      });
 
     },
 
@@ -332,7 +357,8 @@ var controller = (function(budgetCtrl, UICtrl) {
     var percentages = budgetCtrl.getPercentages();
 
     // 3. update the UI with the new percentages
-    console.log(percentages);
+    // console.log(percentages);　
+    UICtrl.displayPercentages(percentages);
 
   };
 
@@ -397,7 +423,7 @@ var controller = (function(budgetCtrl, UICtrl) {
 
   return {
     init: function(){
-      console.log ('APPLICATION has STARTed!');
+      console.log('APPLICATION has STARTed!');
       UICtrl.displayBudget({
         budget: 0,
         totalInc: 0,
@@ -406,7 +432,7 @@ var controller = (function(budgetCtrl, UICtrl) {
       });
       setupEventListeners();
     }
-  }
+  };
 
 })(budgetController, UIController);
 
