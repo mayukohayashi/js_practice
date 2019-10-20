@@ -1,0 +1,22 @@
+{
+  "name": "recipeapp",
+  "version": "1.0.0",
+  "description": "makingApp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mayukohayashi/js_practice.git"
+  },
+  "keywords": [
+    "yeah"
+  ],
+  "author": "mayuko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mayukohayashi/js_practice/issues"
+  },
+  "homepage": "https://github.com/mayukohayashi/js_practice#readme"
+}
