@@ -724,16 +724,31 @@ function reportPark(p) {
   p.forEach(el => el.calucDensity());
 
   //Average age
-  const ages = p.map(el => new Date().getFullYear() -el.yearOfMade)
+  const ages
+  = p.map(el => new Date().getFullYear() -el.yearOfMade)
   const [totalAge, avgAge] = calc(ages);
   console.log(`Our ${p.length} parks have an average of ${avgAge} years.`)
 
   //Which park has more than 100%
-  const i = p.map(el => el.numOfTrees).findIn
+  const i
+  = p.map(el => el.numOfTrees).findIndex(el => el >=1000);
+  console.log(`${p[i].name} has more than 1000 trees.`)
 
 }
 
 function reportStreet(s) {
+  console.log('---------------- StreetS REPORT------------------')
+
+  //total and average length of the town`s streets
+  const [totalLength, avgLength]
+  = calc(s.map(el => el.length));
+  console.log(`Our ${s.length} streets have a total length of ${totalLength}km, with an average of ${avgLength}km.`)
+
+  //classify sizes
+  s.forEach(el => el.classifyStreet());
+
+
+
 
 }
 
