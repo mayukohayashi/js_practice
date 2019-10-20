@@ -535,7 +535,7 @@ class Person6 {
 }
 
 const john6 = new Person6('John', 1990, 'teacher');
-　
+
 Person6.greeting();
 */
 
