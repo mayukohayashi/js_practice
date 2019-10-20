@@ -657,7 +657,7 @@ class CityHold {
 
 
 
-class Parks extends CityHold {
+class Park extends CityHold {
   constructor(name, yearOfMade, sizeOfPark, numOfTrees) {
 
     super(name, yearOfMade);
@@ -676,7 +676,7 @@ class Parks extends CityHold {
 
 
 
-class Streets extends CityHold {
+class Street extends CityHold {
   constructor(name, yearOfMade, streetLength, size = 3) {
     super(name, yearOfMade);
     this.streetLength = streetLength;
@@ -706,15 +706,30 @@ const allStreets = [new Street('Ocean Avenue', 1999, 1.1, 4),
                     new Street('Sunset Boulevard', 1982, 2.5, 5)];
 
 
+function calc(arr) {
+
+  const sum = arr.reduce((prev, cur, index) => prev + cur, 0);
+  // [3, 5, 6]
+
+  return [sum, sum / arr.length];
+
+
+}
+
+
 function reportPark(p) {
   console.log('---------------- PARKS REPORT------------------')
 
   //Density
+  p.forEach(el => el.calucDensity());
 
   //Average age
+  const ages = p.map(el => new Date().getFullYear() -el.yearOfMade)
+  const [totalAge, avgAge] = calc(ages);
+  console.log(`Our ${p.length} parks have an average of ${avgAge} years.`)
 
   //Which park has more than 100%
-  
+  const i = p.map(el => el.numOfTrees).findIn
 
 }
 
