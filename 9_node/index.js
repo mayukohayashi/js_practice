@@ -1,9 +1,9 @@
 const fs = require('fs');
 const http = require('http');
 const url = require('url');
+const slugify = require('slugify');
 
 const replaceTemplate = require('./modules/replaceTemplate');
-
 
 ////////////////////////////////////////////////
 //////File
@@ -55,6 +55,14 @@ const dataObj      = JSON.parse(data);
 
   // res.writeHead(200, { 'Content-type': 'application/json' });
   // res.end(data);
+
+  // console.log(slugify('Freshavogado', {lower: true}));
+  const slugs = dataObj.map(el => slugify(el.productName, {lower: true}));
+  console.log(slugs)
+  
+
+
+
 
 const server = http.createServer((req, res) => {
   // console.log(req.url);

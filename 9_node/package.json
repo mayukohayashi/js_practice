@@ -1,11 +1,18 @@
 {
-  "name": "farmer-shop-app",
+  "name": "farm-app",
   "version": "1.0.0",
-  "description": "lerning  node.js",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon index.js"
   },
-  "author": "mayuko hayashi",
-  "license": "ISC"
+  "author": "Mayuko Hayashi",
+  "license": "ISC",
+  "dependencies": {
+    "1.0.2": "^1.0.0",
+    "slugify": "^1.3.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
 }
