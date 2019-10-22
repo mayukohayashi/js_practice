@@ -50,22 +50,28 @@ const dataObj = JSON.parse(data);
   // res.writeHead(200, { 'Content-type': 'application/json' });
   // res.end(data);
 
-
 const server = http.createServer((req, res) => {
   console.log(req.url);
 
   const pathName =  req.url;
 
+
+  // OVERVIEW PAGE
   if(pathName === '/' || pathName === '/overview') {
+    
+
     res.end('This is the OVERVIEW');
 
+// product page
   } else if (pathName === '/product') {
     res.end('This is the PRODUCT')
 
+// api page
   } else if (pathName === '/api') {
       res.writeHead(200, {'Content-type': 'application/json'});
       res.end(data);
 
+// not found
   } else {
     res.writeHead(404, {
       'Content-type': 'text/html',
