@@ -1,8 +1,8 @@
 {
-  "name": "app",
+  "name": "natours",
   "version": "1.0.0",
   "description": "app",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start:dev": "nodemon server.js",
     "start:prod": "NODE_ENV=production nodemon server.js"
