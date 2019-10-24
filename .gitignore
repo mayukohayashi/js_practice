@@ -103,3 +103,5 @@ public
 .DS_Store
 
 config/secrets.yml
+
+.config.env
