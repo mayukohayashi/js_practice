@@ -105,3 +105,4 @@ public
 config/secrets.yml
 
 .config.env
+APP/config.env
