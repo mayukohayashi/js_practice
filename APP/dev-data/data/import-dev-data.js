@@ -31,7 +31,6 @@ const importData = async () => {
   } catch (err) {
     console.log(err);
   }
-  process.exit();
 };
 
 // Delete all data from collection
