@@ -8,17 +8,17 @@ exports.aliasTopTours = (req, res, next) => {
   next();
 };
 
-exports.checkID = (req, res, next, val) => {
-  console.log(`Tour id is: ${val}`);
+// exports.checkID = (req, res, next, val) => {
+//   console.log(`Tour id is: ${val}`);
 
-  if (req.params.id * 1 > tours.length) {
-    return res.status(404).json({
-      status: 'fail',
-      message: 'Invalid ID'
-    });
-  }
-  next();
-};
+//   if (req.params.id * 1 > tours.length) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Invalid ID'
+//     });
+//   }
+//   next();
+// };
 
 exports.getAllTours = async (req, res) => {
   try {
@@ -223,4 +223,4 @@ exports.getMonthlyPlan = async (req, res) => {
       message: err
     });
   }
-}
+};
