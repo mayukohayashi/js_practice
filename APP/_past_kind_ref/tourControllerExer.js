@@ -1,5 +1,18 @@
 const fs = require('fs');
 
+// exports.checkID = (req, res, next, val) => {
+//   console.log(`Tour id is: ${val}`);
+
+//   if (req.params.id * 1 > tours.length) {
+//     return res.status(404).json({
+//       status: 'fail',
+//       message: 'Invalid ID'
+//     });
+//   }
+//   next();
+// };
+
+
 const tours = JSON.parse(
   fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
 );
@@ -88,3 +101,29 @@ exports.deleteTour = (req, res) => {
     data: null
   });
 };
+
+
+
+exports.getAllTours = catchAsync(async (req, res) => {
+  // Execute query
+  const features = new APIFeatures(Tour.find(), req.query)
+    .filter()
+    .sort()
+    .limitFields()
+    .paginate();
+  const tours = await features.query;
+  //query.sort().select().skip().limit()
+  // const query = await Tour.find()
+  //   .where('duration')
+  //   .equals(5)
+  //   .where('difficulty')
+  //   .equals('easy');o
+  // Send response
+  res.status(200).json({
+    status: 'success',
+    results: tours.length,
+    data: {
+      tours
+    }
+  });
+});
