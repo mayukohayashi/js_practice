@@ -22,7 +22,7 @@ const handleJWTError = () =>
   new AppError('Invalid token. Please log in again!', 401);
 
 const handleJWTExpiredError = () =>
-  new AppError('Your token has expired! Pleaselog in again!', 401);
+  new AppError('Your token has expired! Please log in again.', 401);
 
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
@@ -61,7 +61,6 @@ module.exports = (err, req, res, next) => {
   if (process.env.NODE_ENV === 'development') {
     sendErrorDev(err, res);
   } else if (process.env.NODE_ENV === 'production') {
-    // eslint-disable-next-line node/no-unsupported-features/es-syntax
     let error = { ...err };
 
     if (error.name === 'CastError') error = handleCastErrorDB(error);
@@ -69,7 +68,7 @@ module.exports = (err, req, res, next) => {
     if (error.name === 'ValidationError')
       error = handleValidationErrorDB(error);
     if (error.name === 'JsonWebTokenError') error = handleJWTError();
-    if (error.name === 'JsonExpiredError') error = handleJWTExpiredError();
+    if (error.name === 'TokenExpiredError') error = handleJWTExpiredError();
 
     sendErrorProd(error, res);
   }
