@@ -13,7 +13,8 @@ const userRouter = require('./routes/userRoutes');
 
 const app = express();
 
-// 1) GLOBAL MIDDLEWARES
+// 1) GLOBAL MIDDLEWARE
+
 // Set security HTTP headers
 app.use(helmet());
 
