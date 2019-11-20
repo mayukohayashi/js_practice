@@ -6,7 +6,7 @@ const bcrypt = require('bcryptjs');
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please tell us your name🙏']
+    required: [true, 'Please tell us your name!']
   },
   email: {
     type: String,
@@ -35,12 +35,17 @@ const userSchema = new mongoose.Schema({
       validator: function(el) {
         return el === this.password;
       },
-      message: 'Passwords and confirmation passwords are not the same!'
+      message: 'Passwords are not the same!'
     }
   },
   passwordChangedAt: Date,
   passwordResetToken: String,
-  passwordResetExpires: Date
+  passwordResetExpires: Date,
+  active: {
+    type: Boolean,
+    default: true,
+    select: false
+  }
 });
 
 userSchema.pre('save', async function(next) {
@@ -52,6 +57,19 @@ userSchema.pre('save', async function(next) {
 
   // Delete passwordConfirm field
   this.passwordConfirm = undefined;
+  next();
+});
+
+userSchema.pre('save', function(next) {
+  if (!this.isModified('password') || this.isNew) return next();
+
+  this.passwordChangedAt = Date.now() - 1000;
+  next();
+});
+
+userSchema.pre(/^find/, function(next) {
+  // this points to the current query
+  this.find({ active: { $ne: false } });
   next();
 });
 
@@ -86,7 +104,7 @@ userSchema.methods.createPasswordResetToken = function() {
 
   console.log({ resetToken }, this.passwordResetToken);
 
-  this.passwordResetExpires = Date.now() + 30 * 60 * 1000;
+  this.passwordResetExpires = Date.now() + 10 * 60 * 1000;
 
   return resetToken;
 };

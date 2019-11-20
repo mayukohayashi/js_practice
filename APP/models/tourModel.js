@@ -27,7 +27,7 @@ const tourSchema = new mongoose.Schema(
       required: [true, 'A tour must have a difficulty'],
       enum: {
         values: ['easy', 'medium', 'difficult'],
-        message: 'Difficulty is either: easy, medium or difficult'
+        message: 'Difficulty is either: easy, medium, difficult'
       }
     },
     ratingsAverage: {
@@ -80,12 +80,8 @@ const tourSchema = new mongoose.Schema(
     }
   },
   {
-    toJSON: {
-      virtuals: true
-    },
-    toObject: {
-      virtuals: true
-    }
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
   }
 );
 
@@ -93,7 +89,7 @@ tourSchema.virtual('durationWeeks').get(function() {
   return this.duration / 7;
 });
 
-// DOCUMENT MIDDLEWARE: runs before .save() and .create() (not .insertMany())
+// DOCUMENT MIDDLEWARE: runs before .save() and .create()
 tourSchema.pre('save', function(next) {
   this.slug = slugify(this.name, { lower: true });
   next();
@@ -113,12 +109,13 @@ tourSchema.pre('save', function(next) {
 // tourSchema.pre('find', function(next) {
 tourSchema.pre(/^find/, function(next) {
   this.find({ secretTour: { $ne: true } });
+
   this.start = Date.now();
   next();
 });
 
 tourSchema.post(/^find/, function(docs, next) {
-  console.log(`Query took ${Date.now() - this.start} milliseconds!!`);
+  console.log(`Query took ${Date.now() - this.start} milliseconds!`);
   next();
 });
 
