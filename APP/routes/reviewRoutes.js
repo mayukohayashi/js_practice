@@ -16,14 +16,6 @@ router
     reviewController.createReview
   );
 
-// router
-//   .route('/review/:id')
-//   .get(reviewController.getReview)
-//   .patch(reviewController.updateReview)
-//   .delete(
-//     authController.protect,
-//     authController.restrictTo('user'),
-//     reviewController.deleteReview
-//   );
+router.route('/:id').delete(reviewController.deleteReview);
 
 module.exports = router;
