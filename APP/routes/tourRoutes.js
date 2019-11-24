@@ -27,6 +27,12 @@ router
   );
 
 router
+  .route('/tours-within/:distance/center/:latlng/unit/:unit')
+  .get(tourController.getToursWithin);
+// /tours-distance?distance=122&center-40,45&unit=ml
+// /tours-distance/222/center/-40,45/unit/mi
+
+router
   .route('/')
   .get(tourController.getAllTours)
   .post(
@@ -50,5 +56,3 @@ router
   );
 
 module.exports = router;
-
-//TODO here will be validation error?
