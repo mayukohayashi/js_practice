@@ -1,16 +1,14 @@
 doctype html
 html
   head
-    title Natours | #{tour}
+    meta(charset='UTF-8')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+
+    title Natours | Exciting tours for adventurous people
+
     link(rel='stylesheet' href='css/style.css')
+    link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato:300,300i,700')
     link(rel='shortcut icon' type='image/png' href='img/favicon.png')
 
   body
-    h1= tour
-    //- tour name
-    h2= user.toUpperCase()
 
-    - const x = 9;
-    h2= 2 * x
-
-    p This is just some text test
