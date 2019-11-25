@@ -10,10 +10,10 @@ block content
           .card__header
             .card__picture
               .card__picture-overlay &nbsp;
-              img.card__picture-img(src='img/tour-1-cover.jpg', alt='Tour 1')
+              img.card__picture-img(src='${tour.imgCover}', alt='${tour.name}')
             h3.heading-tertirary
-              span The Forest Hiker
-  
+              span= tour.name
+
           .card__details
             h4.card__sub-heading Easy 5-day tour
             p.card__text Breathtaking hike through the Canadian Banff National Park
@@ -34,7 +34,7 @@ block content
               svg.card__icon
                 use(xlink:href='img/icons.svg#icon-user')
               span 25 people
-  
+
           .card__footer
             p
               span.card__footer-value $297
