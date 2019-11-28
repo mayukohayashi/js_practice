@@ -13,4 +13,6 @@ router.get('/tour/:slug', viewsController.getTour);
 router.get('/login', viewsController.getLoginForm);
 router.get('/signup', viewsController.getSignUpForm);
 
+router.get('/me', authController.protect, viewsController.getAccount)
+
 module.exports = router;
