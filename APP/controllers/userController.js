@@ -21,7 +21,7 @@ const multerFilter = (req, file, cb) => {
   if (file.mimetype.startsWith('image')) {
     cb(null, true);
   } else {
-    cb(new AppError('Not and image! Please upload only images.', 400), false);
+    cb(new AppError('Not an image! Please upload only images.', 400), false);
   }
 };
 
@@ -92,9 +92,7 @@ exports.updateMe = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteMe = catchAsync(async (req, res, next) => {
-  await User.findByIdAndUpdate(req.user.id, {
-    active: false
-  });
+  await User.findByIdAndUpdate(req.user.id, { active: false });
 
   res.status(204).json({
     status: 'success',
@@ -109,8 +107,8 @@ exports.createUser = (req, res) => {
   });
 };
 
-exports.getAllUsers = factory.getAll(User);
 exports.getUser = factory.getOne(User);
+exports.getAllUsers = factory.getAll(User);
 
 // Do not update passwords with this(admin)
 exports.updateUser = factory.updateOne(User);
